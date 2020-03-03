@@ -1,0 +1,69 @@
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 30m #session会话超时时间，默认情况下超时时间是30分钟，不能小于1分钟
+      cookie:
+        name: JSESSIONID # 指定浏览器中关于sessionId保存的那个名称
+
+spring:
+#  session:
+#    store-type: none # session 存储方式采用 redis
+  datasource:
+    username: root
+    password: root
+    #使用 MySQL连接驱动是8.0以上，需要在Url后面加上时区, GMT%2B8代表中国时区，不然报时区错误
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=UTF-8
+    #mysql8版本以上指定新的驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 数据源其他配置, 在 DruidConfig配置类中手动绑定
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+  thymeleaf:
+    cache: false #关闭thymeleaf缓存
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+#  redis:
+#    port: 6379
+
+
+mybatis-plus:
+  # 指定实体类所有包
+  type-aliases-package: com.mengxuegu.web.entities
+
+# 日志级别，会打印sql语句
+logging:
+  level:
+    com.mengxuegu.web.mapper: debug
+
+mengxuegu:
+  security:
+    authentication:
+      loginPage: /login/page          #表单登录方式
+      loginProcessingUrl: /login/form #登录表单提交处理url,默认是/login
+      usernameParameter: name #username
+      passwordParameter: pwd  #password
+      staticPaths: #静态资源文件  "/dist/**","modules/**","/plugins/**"
+      - /dist/**
+      - /modules/**
+      - /plugins/**
+      loginType: REDIRECT #认证之后 响应的类型 JSON/REDIRECT
+      imageCodeUrl: /code/image #获取图形验证码地址
+      mobileCodeUrl: /mobile/page #发送手机验证码地址
+      mobilePage: /code/mobile #前往手机登录页面
+      tokenValiditySeconds: 604800 #记住我功能有效时长
+
+test:
+  limitSizeMap:
+    baidu: 1024
+    sogou: 90
+    hauwei: 4096
+    qq: 1024
