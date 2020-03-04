@@ -74,9 +74,9 @@ public class MenuAuthenticationSuccessListener implements AuthenticationSuccessL
 
          //3.menuList 里面每元素的子菜单分配好
             List<SysPermission> result = Lists.newArrayList();
-            menuList.forEach(sysPermission -> {
-                if (sysPermission.getId().equals(0L)){
-                    result.add(sysPermission);
+            menuList.forEach(permission -> {
+                if (permission.getId().equals(0L)){
+                    result.add(permission);
                 }
             });
             sysUser.setPermissions(result);
