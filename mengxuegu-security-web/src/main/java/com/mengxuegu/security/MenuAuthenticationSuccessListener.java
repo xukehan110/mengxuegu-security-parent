@@ -51,7 +51,7 @@ public class MenuAuthenticationSuccessListener implements AuthenticationSuccessL
         }
          List<SysPermission> menuList = Lists.newArrayList();
          permissions.forEach(sysPermission -> {
-             if (sysPermission.getType() != 1){
+             if (sysPermission.getType() == 1){
                  menuList.add(sysPermission);
              }
          });
@@ -75,7 +75,7 @@ public class MenuAuthenticationSuccessListener implements AuthenticationSuccessL
          //3.menuList 里面每元素的子菜单分配好
             List<SysPermission> result = Lists.newArrayList();
             menuList.forEach(permission -> {
-                if (permission.getId().equals(0L)){
+                if (permission.getParentId().equals(0L)){
                     result.add(permission);
                 }
             });
